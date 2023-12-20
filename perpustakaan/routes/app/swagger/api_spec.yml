@@ -1,0 +1,254 @@
+openapi: '3.0.0'
+info:
+  title: Latihan JovanFL 55200232
+  version: '1.0.11'
+  description: Untuk menuntaskan pelajaran WebTec3.
+  contact:
+    name: Saya Melalui Email
+    email: 55200232@student.kwikkiangie.ac.id
+servers:
+  - url: http://localhost:8000
+paths:
+  /:
+    get:
+      tags:
+        - "Home"
+      summary: Halaman Awal Doang
+      responses:
+        '200':
+          description: OK
+  /buku/output:
+    get:
+      tags:
+      - Tampilkan Buku
+      summary: Ambil semua data buku format json 
+      description: Untuk ambil semua data buku
+      operationId: AmbilBuku
+      responses:
+        '200':
+          description: Berhasil gan.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Buku'
+      security:
+        - api_key: []
+
+  /buku/outputx:
+    get:
+      tags:
+      - Tampilkan Buku
+      summary: Ambil semua data buku format xml
+      description: Untuk ambil semua data buku
+      operationId: AmbilBuku
+      responses:
+        '200':
+          description: Sukses bos.
+          content:
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  wrapped: true
+                  name: Buku
+                items:
+                  $ref: '#/components/schemas/Buku'
+      security:
+        - api_key: []
+
+  /buku/input:
+    post:
+      tags:
+        - "Tambah Data"
+      summary: tambah data buku
+      description: menambah data buku
+      operationId: TambahBuku
+      requestBody:
+        description: masukkan data buku yang mau ditambahkan
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InputBuku'
+        required: true
+      responses:
+        '200': 
+          description: Masuk BosQu.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputBuku'
+        '405':
+          description: Input gak sesuai.
+        '500':
+          description: Datanya sudah ada sayang.
+      security:
+        - api_key: []
+      
+  /buku/delete:
+    post:
+      tags:
+        - "Hapus Data"
+      summary: Hapus data buku
+      description: menghapus data buku
+      operationId: HapusBuku
+      requestBody:
+        description: hapus data buku
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HBuku'
+        required: true
+      responses:
+        '200': 
+          description: Kehapus BosQu.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HBuku'
+        '405':
+          description: tidak menemukan data.
+      security:
+        - api_key: []
+
+  /buku/update:
+    post:
+      tags:
+        - "Update Data"
+      summary: update data buku
+      description: update data buku
+      operationId: UpdateBuku
+      requestBody:
+        description: masukkan data buku yang mau diubah
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UBuku'
+        required: true
+      responses:
+        '200': 
+          description: Masuk BosQu.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UBuku'
+        '405':
+          description: Input gak sesuai.
+        '500':
+          description: Datanya sudah ada sayang.
+      security:
+        - api_key: []
+
+components:
+  schemas:
+    Buku:
+      required:
+        - idBuku
+      type: object
+      properties:
+        idBuku:
+          type: string
+          example: 88888888
+        judulBuku:
+          type: string
+          example: Nama Buku
+        penulis:
+          type: string
+          example: Andi Budi
+        penerbit:
+          type: string
+          example: gudang garam
+        tahunTerbit:
+          type: integer
+          format: int64
+          example: 2000
+        jumlahHalaman:
+          type: integer
+          format: int64
+          example: 100
+        kategori:
+          type: string
+          example: cerita
+        stok:
+          type: integer
+          format: int64
+          example: 8
+
+    InputBuku:
+      required:
+        - "id_buku"
+      type: object
+      properties:
+        id_buku:
+          type: string
+          example: 88888888
+        judul_buku:
+          type: string
+          example: Nama Buku
+        penulis:
+          type: string
+          example: Andi Budi
+        penerbit:
+          type: string
+          example: gudang garam
+        tahun_terbit:
+          type: integer
+          format: int64
+          example: 2000
+        jumlah_halaman:
+          type: integer
+          format: int64
+          example: 100
+        kategori:
+          type: string
+          example: cerita
+        stok:
+          type: integer
+          format: int64
+          example: 8
+
+    HBuku:
+      required:
+        - "id_buku"
+      type: object
+      properties:
+        id_buku:
+          type: string
+          example: 88888888
+
+    UBuku:
+      required:
+        - "id_buku"
+      type: object
+      properties:
+        id_buku:
+          type: string
+          example: 88888888
+        id_buku_baru:
+          type: string
+          example: 12345678
+        judul_buku:
+          type: string
+          example: Nama Buku
+        penulis:
+          type: string
+          example: Andi Budi
+        penerbit:
+          type: string
+          example: gudang garam
+        tahun_terbit:
+          type: integer
+          format: int64
+          example: 2000
+        jumlah_halaman:
+          type: integer
+          format: int64
+          example: 100
+        kategori:
+          type: string
+          example: cerita
+        stok:
+          type: integer
+          format: int64
+          example: 8
